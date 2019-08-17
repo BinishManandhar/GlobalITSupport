@@ -1,0 +1,98 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><%=data.LaptopName%></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item active">
+                            Add Laptop
+                        </li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row form-group">
+                                <img class="img-fluid featured-img-size" src="/images/<%=data.Image%>"></img>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Model">Model:</label>
+                                <div class="col-sm-8">
+                                    <%=data.Model%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="CPU">CPU/Processor:</label>
+                                <div class="col-sm-6">
+                                    <%=data.CPU%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Memory">Memory:</label>
+                                <div class="col-sm-4">
+                                    <%=data.Memory%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="HDD">HDD:</label>
+                                <div class="col-sm-4">
+                                    <%=data.HDD%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="OS">OS:</label>
+                                <div class="col-sm-6">
+                                    <%=data.OS%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Graphics">Graphics Card:</label>
+                                <div class="col-sm-6">
+                                    <%=data.Graphics%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Price">Price(NRS):</label>
+                                <div class="col-sm-4">
+                                    <%=data.Price%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Details">Details:</label>
+                                <div class="col-sm-8">
+                                    <%=data.Detail%>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-4" for="Unique ID">Unique ID:</label>
+                                <div class="col-sm-4">
+                                    <input id="slug" type="text" value="<%=data.UniqueSlug%>" class="form-control"
+                                        name="UniqueSlug" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%-contentFor('script')%>

@@ -1,0 +1,99 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><%=where%></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-8 col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="form-horizontal" action="/index/specifications/CPU" method="POST" id="cpuForm">
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-3" for="Title">CPU/Processor:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="CPU" id="cpu">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-dark" id="submitBttn">Add</button>
+                                    </div>
+                            </form>
+                        </div>
+                        <form class="form-horizontal" action="/index/specifications/Memory" method="POST"
+                            id="memoryForm">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3" for="Memory">Memory:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="Memory" id="memory">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=""><button type="submit" class="btn btn-dark"
+                                            id="submitBttn">Add</button></a>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" action="/index/specifications/HDD" method="POST" id="hddForm">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3" for="hdd">HDD:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="HDD" id="hdd">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=""><button type="submit" class="btn btn-dark"
+                                            id="submitBttn">Add</button></a>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" action="/index/specifications/OS" method="POST" id="osForm">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3" for="OS">OS:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="OS" id="os">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=""><button type="submit" class="btn btn-dark"
+                                            id="submitBttn">Add</button></a>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" action="/index/specifications/Graphics" method="POST"
+                            id="graphicsForm">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3" for="Graphics">Graphics Card:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="Graphics" id="graphics">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=""><button type="submit" class="btn btn-dark"
+                                            id="submitBttn">Add</button></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%-contentFor('script')%>

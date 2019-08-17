@@ -1,0 +1,105 @@
+<section class="content">
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/ASUS">
+                <h1>ASUS</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/Dell">
+                <h1>Dell</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/HP">
+                <h1>HP</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/Toshiba">
+                <h1>Toshiba</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/Acer">
+                <h1>Acer</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="/index/laptop/MSI">
+                <h1>MSI</h1>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%-contentFor('script')%>
+<script>
+  function deleteClick(slug) {
+
+    $('div.modal-body').html("Are you sure you want to delete '" + slug + "'");
+    $('#exampleModal').modal('show');
+    $('button#deleteBttn').click(function () {
+      $('a#deleteHref').attr("href", "/index/delete/" + slug);
+      $('a#deleteHref')[0].click();
+    });
+  }
+
+  function parentBttn(slug) {
+    $('div#parentModal').modal('show');
+    $('button#parentSelectBttn').click(function () {
+      $('a#parentHref').attr("href", "/index/parent/" + $('select#parentSelect').val() + "/" + slug);
+      $('a#parentHref')[0].click();
+    });
+  }
+
+</script>

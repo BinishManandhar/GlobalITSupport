@@ -1,0 +1,48 @@
+<%-contentFor('stylesheet')%>
+<!-- Main css -->
+<link rel="stylesheet" href="/stylesheets/signup.css">
+    
+<div class="main">
+
+        <h1>Sign up</h1>
+        <div class="container">
+            <div class="sign-up-content">
+                <form method="POST" class="signup-form" action="/signup">
+                    
+                    <div class="form-textbox">
+                        <label for="employeeId">Employee ID</label>
+                        <input type="text" name="EmployeeID" id="employeeId" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="name">Full name</label>
+                        <input type="text" name="FullName" id="name" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="username">Username</label>
+                        <input type="text" name="UserName" id="email" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="pass">Password</label>
+                        <input type="password" name="Password" id="pass" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="phone">Phone number</label>
+                        <input type="text" name="Phone" id="phone" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <input type="submit" id="submit" class="submit" value="Create account" />
+                    </div>
+                </form>
+
+                <p class="loginhere">
+                    Already have an account ?<a href="/" class="loginhere-link"> Log in</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
