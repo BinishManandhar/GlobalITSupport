@@ -90,6 +90,19 @@ LaptopSchema.statics.findLaptop = function (req, res, callback) {
     );
 }
 
+LaptopSchema.statics.customerLaptopSearch = function (req, res, callback) {
+    this.model('Laptop').find(req).exec(
+        function (err, laptops) {
+            if (err) {
+                return callback(null, err);
+            }
+            else {
+                return callback(laptops, null);
+            }
+        }
+    );
+}
+
 LaptopSchema.statics.deleteLaptop = function (req, res, callback) {
     var slug = req.params.slug;
     this.model('Laptop').deleteOne({ UniqueSlug: slug }).then(data => {

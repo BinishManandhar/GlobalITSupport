@@ -6,6 +6,7 @@ var hdd = require('../model/hdd');
 var os = require('../model/os');
 var graphics = require('../model/graphics');
 var laptop = require('../model/laptops');
+var customers = require('../model/customers');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -144,6 +145,28 @@ router.get('/laptop/delete/:brand?/:slug?', function (req, res, next) {
   laptop.deleteLaptop(req, res, function (result, err) {
     if (!err && result)
       res.redirect('/index/laptop/' + req.params.brand);
+  });
+});
+
+router.get('/customers/add', function (req, res, next) {
+  res.render('customers');
+});
+
+router.post('/customers/add', function (req, res, next) {
+  customers.enterNewCustomer(req, res, function (result, err) {
+    if (err && !result) {
+      next(err);
+    } else {
+      res.redirect('/customers');
+    }
+  });
+});
+
+router.post('/customers/searchlaptop', function (req, res, next) {
+  laptop.customerLaptopSearch(req, res, function (result, err) {
+    if (!err) {
+      res.render('/customers/add', { data: result });
+    }
   });
 });
 

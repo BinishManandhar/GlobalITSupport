@@ -1,0 +1,160 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Customers</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item active">
+                            Add Customer
+                        </li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <form class="form-horizontal" action="/index/customers/add" method="POST" id="postForm">
+                <div class="row">
+                    <div class="col-lg-8 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="OS">Customer ID:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="CustomerID" id="customerID">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Model">Full Name:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="FullName" id="fullname">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="CPU">Email ID:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="EmailID" id="emailID">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Memory">Phone:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Phone" id="phone">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Address:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Address" id="address">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Laptop Name:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="LaptopName" id="laptopName">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Model:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Model" id="model">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">CPU:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="CPU" id="cpu">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Memory:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Memory" id="memory">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">HDD:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="HDD" id="hdd">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">OS:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="OS" id="os">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Graphics:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Graphics" id="graphics">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Price:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="Price" id="price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-button popup">
+                    <button type="submit" class="btn btn-dark" id="submitBttn">Add</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%-contentFor('script')%>
+<script src="/javascripts/ckeditor.min.js"></script>
+<script>
+    $('input#model').change(function () {
+        $('input#slug').val(slugify($('input#model').val()));
+    });
+
+    $("#status-dropdown-menu").on('click', 'a', function () {
+        $("#statusBttn").text($(this).text());
+        $("#statusBttn").val($(this).text());
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#laptopImage')
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+</script>
