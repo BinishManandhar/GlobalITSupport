@@ -162,6 +162,36 @@ router.post('/customers/add', function (req, res, next) {
   });
 });
 
+router.get('/customers/searchlaptop',function(req,res,next){
+  var c;
+  var m;
+  var hd;
+  var o;
+  var g;
+  cpu.getCPU(function (result, err) {
+    if (result && !err)
+      c = result;
+    memory.getMemory(function (result, err) {
+      if (result && !err)
+        m = result;
+      hdd.getHDD(function (result, err) {
+        if (result && !err)
+          hd = result;
+        os.getOS(function (result, err) {
+          if (result && !err)
+            o = result;
+          graphics.getGraphics(function (result, err) {
+            if (result && !err){
+              g = result;
+              res.render('searchLaptop', {cpu: c, memory: m, hdd: hd, os: o, graphics: g });
+            }
+          });
+        });
+      });
+    });
+  });
+});
+
 router.post('/customers/searchlaptop', function (req, res, next) {
   laptop.customerLaptopSearch(req, res, function (result, err) {
     if (!err) {
