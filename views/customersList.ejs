@@ -38,29 +38,30 @@
                         </thead>
                         <tbody>
                             <%for(var i=0;i<data.length;i++){%>
-                                <tr>
-                                    <td width="200" class="center-text">
-                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
-                                            <%=data[i].FullName%>
-                                        </a>
-                                    </td>
-                                    <td class="center-text">
-                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
-                                            <%=data[i].Phone%>
-                                        </a>
-                                    </td class="center-text">
-                                    <td class="center-text">
-                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
-                                            <%=data[i].LaptopUniqueSlug%>
-                                        </a>
-                                    </td>
-                                    <td class="center-text">
-                                        <a>
-                                            <i class="fa fa-paper-plane fa-3x"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <%}%>
+                            <tr>
+                                <td width="200" class="center-text">
+                                    <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                        <%=data[i].FullName%>
+                                    </a>
+                                </td>
+                                <td class="center-text">
+                                    <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                        <%=data[i].Phone%>
+                                    </a>
+                                </td class="center-text">
+                                <td class="center-text">
+                                    <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                        <%=data[i].LaptopUniqueSlug%>
+                                    </a>
+                                </td>
+                                <td class="center-text">
+                                    <a onclick="sendMail('<%=data[i].CustomerID%>','<%=data[i].LaptopUniqueSlug%>')">
+                                        <i class="fa fa-paper-plane fa-3x"></i>
+                                    </a>
+                                    <a id="sendMailHref"></a>
+                                </td>
+                            </tr>
+                            <%}%>
                         </tbody>
                     </table>
                 </div>
@@ -69,22 +70,29 @@
     </div>
 
     <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Send Email</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
+                        <div class="md-form mb-5">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input class="form-control" type="text" value="The laptop you reserved is in stock!" id="mailSubject" name="MailSubject" readonly/>
+                        </div>
+                    
+                    
+                    <textarea id="mailBody" type="text" rows="8" cols="10" class="form-control"
+                    name="MailBody" readonly>[Laptop Name will be inserted here] that you had booked on [Date] is now available at our store. Please contact us for further information.</textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button id="deleteBttn" type="button" class="btn
-                                    btn-primary" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="sendBttn" type="button" class="btn
+                                    btn-primary" data-dismiss="modal">Send</button>
                 </div>
             </div>
         </div>
@@ -93,16 +101,15 @@
 </section>
 
 <%-contentFor('script')%>
-    <script>
-        function deleteClick(slug, brand) {
-            $('div.modal-body').html("Are you sure you want to delete '" + slug + "'");
-            $('div#deleteModal').modal('show');
-            $('button#deleteBttn').click(function () {
-                $('a#deleteHref').attr("href", "/index/laptop/delete/" + brand + "/" + slug);
-                $('a#deleteHref')[0].click();
-            });
-        }
+                            <script>
+                                function sendMail(customerID, laptopUniqueSlug) {
+                                    $('div#mailModal').modal('show');
+                                    $('button#sendBttn').click(function () {
+                                        $('a#sendMailHref').attr("href", "/index/customers/sendmail/" + customerID + "/" + laptopUniqueSlug);
+                                        $('a#sendMailHref')[0].click();
+                                    });
+                                }
 
 
 
-    </script>
+                            </script>

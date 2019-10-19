@@ -7,6 +7,15 @@ var os = require('../model/os');
 var graphics = require('../model/graphics');
 var laptop = require('../model/laptops');
 var customers = require('../model/customers');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'project.globalit@gmail.com',
+    pass: 'globalitsupport'
+  }
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -148,6 +157,31 @@ router.get('/laptop/delete/:brand?/:slug?', function (req, res, next) {
   });
 });
 
+
+router.get('/customers/sendmail/:slug?/:laptopuniqueslug?', function (req, res, next) {
+  var customerID = req.params.slug;
+  var laptopUniqueSlug = req.params.laptopuniqueslug;
+  customers.getCustomer(req, res, function (result) {
+    laptop.getCustomerLaptop(laptopUniqueSlug, res, function (re) {
+      var bodyMessage = re[0].Model + " that you had booked on " + result[0].Date + " is now available at our store. Please contact us for further information"
+      var mailOptions = {
+        from: 'project.globalit@gmail.com',
+        to: result[0].EmailID,
+        subject: 'The laptop you reserved is in stock!',
+        text: bodyMessage
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.redirect('/index/customers/');
+        }
+      });
+    });
+  });
+});
 router.get('/customers', function (req, res, next) {
   customers.getCustomers(req, res, function (result, err) {
     res.render('customersList', { data: result });
