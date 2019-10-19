@@ -174,9 +174,14 @@ router.get('/customers/sendmail/:slug?/:laptopuniqueslug?', function (req, res, 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
+          customers.getCustomers(req, res, function (result, err) {
+            res.redirect('/index/customers/');
+          });
         } else {
           console.log('Email sent: ' + info.response);
-          res.redirect('/index/customers/');
+          customers.getCustomers(req, res, function (result, err) {
+            res.redirect('/index/customers/');
+          });
         }
       });
     });
@@ -203,8 +208,10 @@ router.get('/customers/add', function (req, res, next) {
 });
 
 router.get('/customers/add/:slug?', function (req, res, next) {
-  laptop.findLaptop(req, res, function (result, err) {
-    res.render('customers', { where: "after", data: result });
+  customers.getCustomers(req, res, function (re, err) {
+    laptop.findLaptop(req, res, function (result, err) {
+      res.render('customers', { where: "after", data: result, customerID: re.length + 1 });
+    });
   });
 });
 

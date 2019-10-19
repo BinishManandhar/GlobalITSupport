@@ -69,8 +69,9 @@
         </div>
     </div>
 
-    <!-- Delete Modal -->
-    <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Send Email Modal -->
+    <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -80,14 +81,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                        <div class="md-form mb-5">
-                                <i class="fas fa-envelope prefix grey-text"></i>
-                                <input class="form-control" type="text" value="The laptop you reserved is in stock!" id="mailSubject" name="MailSubject" readonly/>
-                        </div>
-                    
-                    
-                    <textarea id="mailBody" type="text" rows="8" cols="10" class="form-control"
-                    name="MailBody" readonly>[Laptop Name will be inserted here] that you had booked on [Date] is now available at our store. Please contact us for further information.</textarea>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input class="form-control" type="text" value="The laptop you reserved is in stock!"
+                            id="mailSubject" name="MailSubject" readonly />
+                    </div>
+
+
+                    <textarea id="mailBody" type="text" rows="8" cols="10" class="form-control" name="MailBody"
+                        readonly>[Laptop Name will be inserted here] that you had booked on [Date] is now available at our store. Please contact us for further information.</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -97,6 +99,7 @@
             </div>
         </div>
     </div>
+
 
 </section>
 
@@ -109,7 +112,5 @@
                                         $('a#sendMailHref')[0].click();
                                     });
                                 }
-
-
 
                             </script>
