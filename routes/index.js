@@ -148,21 +148,55 @@ router.get('/laptop/delete/:brand?/:slug?', function (req, res, next) {
   });
 });
 
+router.get('/customers', function (req, res, next) {
+  customers.getCustomers(req, res, function (result, err) {
+    res.render('customersList', { data: result });
+  });
+});
+
+router.get('/customers/view/:slug?', function (req, res, next) {
+  customers.getCustomer(req, res, function (resul, err) {
+    laptop.getCustomerLaptop(resul[0].LaptopUniqueSlug, res, function (result, err) {
+      res.render('customersDesc', { where: "before", data: result[0], customer: resul[0] })
+    });
+  });
+});
+
 router.get('/customers/add', function (req, res, next) {
-  res.render('customers');
+  customers.getCustomers(req, res, function (result, err) {
+    res.render('customers', { where: "before", customerID: result.length + 1 });
+  });
+});
+
+router.get('/customers/add/:slug?', function (req, res, next) {
+  laptop.findLaptop(req, res, function (result, err) {
+    res.render('customers', { where: "after", data: result });
+  });
+});
+
+router.get('/customers/choosebrand', function (req, res, next) {
+  res.render('chooseBrand');
+});
+
+router.get('/customers/choosebrand/:slug?', function (req, res, next) {
+  laptop.getLaptops(req, res, function (result) {
+    res.render('chooseLaptop', { data: result, where: req.params.slug });
+  });
 });
 
 router.post('/customers/add', function (req, res, next) {
+  let date_ob = new Date();
+  req.body.Date = date_ob.getFullYear() + "-" + (date_ob.getMonth() + 1) + "-" + date_ob.getDate();
   customers.enterNewCustomer(req, res, function (result, err) {
     if (err && !result) {
       next(err);
     } else {
-      res.redirect('/customers');
+      res.redirect('/index/customers/add/');
     }
   });
 });
 
-router.get('/customers/searchlaptop',function(req,res,next){
+router.get('/customers/searchlaptop', function (req, res, next) {
   var c;
   var m;
   var hd;
@@ -181,9 +215,9 @@ router.get('/customers/searchlaptop',function(req,res,next){
           if (result && !err)
             o = result;
           graphics.getGraphics(function (result, err) {
-            if (result && !err){
+            if (result && !err) {
               g = result;
-              res.render('searchLaptop', {cpu: c, memory: m, hdd: hd, os: o, graphics: g });
+              res.render('searchLaptop', { cpu: c, memory: m, hdd: hd, os: o, graphics: g });
             }
           });
         });

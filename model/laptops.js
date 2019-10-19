@@ -70,6 +70,24 @@ LaptopSchema.statics.getLaptops = function (req, res, callback) {
         }
     );
 }
+LaptopSchema.statics.getCustomerLaptop = function (req, res, callback) {
+
+    this.model('Laptop').find({ UniqueSlug: req }).exec(
+        function (err, laptops) {
+            if (err) {
+                return callback(err);
+            }
+            else if (!laptops) {
+                err = new Error("Laptop not found");
+                err.status = 401;
+                return callback(err);
+            }
+            else {
+                return callback(laptops);
+            }
+        }
+    );
+}
 
 LaptopSchema.statics.findLaptop = function (req, res, callback) {
     var slug = req.params.slug;

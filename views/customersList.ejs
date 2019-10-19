@@ -1,0 +1,108 @@
+<section class="content">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Customers</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item active">
+                                <a href="/index">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/index/customers/add">Add Customer</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class=" center-text">Customer's Name</th>
+                                <th class="center-text">Contact Number</th>
+                                <th class="center-text">Laptop ID</th>
+                                <th class=" center-text">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i=0;i<data.length;i++){%>
+                                <tr>
+                                    <td width="200" class="center-text">
+                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                            <%=data[i].FullName%>
+                                        </a>
+                                    </td>
+                                    <td class="center-text">
+                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                            <%=data[i].Phone%>
+                                        </a>
+                                    </td class="center-text">
+                                    <td class="center-text">
+                                        <a href="/index/customers/view/<%=data[i].CustomerID%>">
+                                            <%=data[i].LaptopUniqueSlug%>
+                                        </a>
+                                    </td>
+                                    <td class="center-text">
+                                        <a>
+                                            <i class="fa fa-paper-plane fa-3x"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button id="deleteBttn" type="button" class="btn
+                                    btn-primary" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<%-contentFor('script')%>
+    <script>
+        function deleteClick(slug, brand) {
+            $('div.modal-body').html("Are you sure you want to delete '" + slug + "'");
+            $('div#deleteModal').modal('show');
+            $('button#deleteBttn').click(function () {
+                $('a#deleteHref').attr("href", "/index/laptop/delete/" + brand + "/" + slug);
+                $('a#deleteHref')[0].click();
+            });
+        }
+
+
+
+    </script>

@@ -5,14 +5,13 @@ const CustomerSchema = new Schema({
     CustomerID: {
         type: Number,
         required: true,
-        unique: false
+        unique: true
     },
     FullName: {
         type: String,
     },
     EmailID: {
         type: String,
-        unique: true
     },
     Phone: {
         type: String,
@@ -22,7 +21,11 @@ const CustomerSchema = new Schema({
         type: String,
         require: true
     },
-    Reservation: {
+    Date: {
+        type: String,
+        require: true
+    },
+    LaptopUniqueSlug: {
         type: String,
         require: true
     },
@@ -40,6 +43,43 @@ CustomerSchema.statics.enterNewCustomer = function (req, res, callback) {
         console.log(err);
         return callback(null, err);
     })
+}
+
+CustomerSchema.statics.getCustomers = function (req, res, callback) {
+    this.model('Customers').find().exec(
+        function (err, customers) {
+            if (err) {
+                return callback(err);
+            }
+            else if (!customers) {
+                err = new Error("Customers not found");
+                err.status = 401;
+                return callback(err);
+            }
+            else {
+                return callback(customers);
+            }
+        }
+    );
+}
+
+CustomerSchema.statics.getCustomer = function (req, res, callback) {
+    var customer = req.params.slug;
+    this.model('Customers').find({ CustomerID: parseInt(customer) }).exec(
+        function (err, customers) {
+            if (err) {
+                return callback(err);
+            }
+            else if (!customers) {
+                err = new Error("Customers not found");
+                err.status = 401;
+                return callback(err);
+            }
+            else {
+                return callback(customers);
+            }
+        }
+    );
 }
 
 
