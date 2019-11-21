@@ -1,0 +1,89 @@
+<section class="content">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">
+                            <%=where%>
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="center-text">Laptop Model</th>
+                                <th class="center-text">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i=0;i<data.length;i++){%>
+                                <tr>
+                                    <td width="200" class="center-text">
+                                        <a href="/index/laptop/desc/<%=data[i].UniqueSlug%>">
+                                            <img class="img-fluid featured-img-size" src="/images/<%=data[i].Image%>"></img>
+                                        </a>
+                                    </td>
+                                    <td class="center-text">
+                                        <a href="/index/laptop/desc/<%=data[i].UniqueSlug%>">
+                                            <%=data[i].Model%>
+                                        </a>
+                                    </td class="center-text">
+                                    <td class="center-text">
+                                        <a href="/index/laptop/desc/<%=data[i].UniqueSlug%>">
+                                            <%=data[i].Price%>
+                                        </a>
+                                    </td>
+                                    <td class="center-text">
+                                        <a href="/index/customers/add/<%=data[i].UniqueSlug%>">
+                                            <i class="fa fa-check fa-3x" aria-hidden="true"></i>
+                                        </a>
+                                        <a id="deleteHref"></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button id="deleteBttn" type="button" class="btn
+                                btn-primary" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<%-contentFor('script')%>
+    <script>
+
+    </script>

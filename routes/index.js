@@ -7,6 +7,15 @@ var os = require('../model/os');
 var graphics = require('../model/graphics');
 var laptop = require('../model/laptops');
 var customers = require('../model/customers');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'project.globalit@gmail.com',
+    pass: 'globalitsupport'
+  }
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -148,21 +157,87 @@ router.get('/laptop/delete/:brand?/:slug?', function (req, res, next) {
   });
 });
 
+
+router.get('/customers/sendmail/:slug?/:laptopuniqueslug?', function (req, res, next) {
+  var customerID = req.params.slug;
+  var laptopUniqueSlug = req.params.laptopuniqueslug;
+  customers.getCustomer(req, res, function (result) {
+    laptop.getCustomerLaptop(laptopUniqueSlug, res, function (re) {
+      var bodyMessage = re[0].Model + " that you had booked on " + result[0].Date + " is now available at our store. Please contact us for further information"
+      var mailOptions = {
+        from: 'project.globalit@gmail.com',
+        to: result[0].EmailID,
+        subject: 'The laptop you reserved is in stock!',
+        text: bodyMessage
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+          customers.getCustomers(req, res, function (result, err) {
+            res.redirect('/index/customers/');
+          });
+        } else {
+          console.log('Email sent: ' + info.response);
+          customers.getCustomers(req, res, function (result, err) {
+            res.redirect('/index/customers/');
+          });
+        }
+      });
+    });
+  });
+});
+router.get('/customers', function (req, res, next) {
+  customers.getCustomers(req, res, function (result, err) {
+    res.render('customersList', { data: result });
+  });
+});
+
+router.get('/customers/view/:slug?', function (req, res, next) {
+  customers.getCustomer(req, res, function (resul, err) {
+    laptop.getCustomerLaptop(resul[0].LaptopUniqueSlug, res, function (result, err) {
+      res.render('customersDesc', { where: "before", data: result[0], customer: resul[0] })
+    });
+  });
+});
+
 router.get('/customers/add', function (req, res, next) {
-  res.render('customers');
+  customers.getCustomers(req, res, function (result, err) {
+    res.render('customers', { where: "before", customerID: result.length + 1 });
+  });
+});
+
+router.get('/customers/add/:slug?', function (req, res, next) {
+  customers.getCustomers(req, res, function (re, err) {
+    laptop.findLaptop(req, res, function (result, err) {
+      res.render('customers', { where: "after", data: result, customerID: re.length + 1 });
+    });
+  });
+});
+
+router.get('/customers/choosebrand', function (req, res, next) {
+  res.render('chooseBrand');
+});
+
+router.get('/customers/choosebrand/:slug?', function (req, res, next) {
+  laptop.getLaptops(req, res, function (result) {
+    res.render('chooseLaptop', { data: result, where: req.params.slug });
+  });
 });
 
 router.post('/customers/add', function (req, res, next) {
+  let date_ob = new Date();
+  req.body.Date = date_ob.getFullYear() + "-" + (date_ob.getMonth() + 1) + "-" + date_ob.getDate();
   customers.enterNewCustomer(req, res, function (result, err) {
     if (err && !result) {
       next(err);
     } else {
-      res.redirect('/customers');
+      res.redirect('/index/customers/add/');
     }
   });
 });
 
-router.get('/customers/searchlaptop',function(req,res,next){
+router.get('/customers/searchlaptop', function (req, res, next) {
   var c;
   var m;
   var hd;
@@ -181,9 +256,9 @@ router.get('/customers/searchlaptop',function(req,res,next){
           if (result && !err)
             o = result;
           graphics.getGraphics(function (result, err) {
-            if (result && !err){
+            if (result && !err) {
               g = result;
-              res.render('searchLaptop', {cpu: c, memory: m, hdd: hd, os: o, graphics: g });
+              res.render('searchLaptop', { cpu: c, memory: m, hdd: hd, os: o, graphics: g });
             }
           });
         });

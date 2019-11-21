@@ -4,6 +4,9 @@
     float: left;
 } 
 
+div .nonClickable{
+  pointer-events: none;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/

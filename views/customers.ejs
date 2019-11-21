@@ -9,14 +9,19 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="/index">Home</a>
+                        </li>
                         <li class="breadcrumb-item active">
                             Add Customer
                         </li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
@@ -29,41 +34,138 @@
                     <div class="col-lg-8 col-6">
                         <div class="card">
                             <div class="card-body">
+                                <%if(where=="after"){%>
                                 <div class="row form-group">
-                                    <label class="control-label col-sm-4" for="OS">Customer ID:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="CustomerID" id="customerID">
+                                    <img class="img-fluid featured-img-size" src="/images/<%=data.Image%>"></img>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Model">Model:</label>
+                                    <div class="col-sm-8">
+                                        <%=data.Model%>
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <label class="control-label col-sm-4" for="Model">Full Name:</label>
+                                    <label class="control-label col-sm-4" for="CPU">CPU/Processor:</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="FullName" id="fullname">
+                                        <%=data.CPU%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Memory">Memory:</label>
+                                    <div class="col-sm-4">
+                                        <%=data.Memory%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">HDD:</label>
+                                    <div class="col-sm-4">
+                                        <%=data.HDD%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="OS">OS:</label>
+                                    <div class="col-sm-6">
+                                        <%=data.OS%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Graphics">Graphics Card:</label>
+                                    <div class="col-sm-6">
+                                        <%=data.Graphics%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Price">Price(NRS):</label>
+                                    <div class="col-sm-4">
+                                        <%=data.Price%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Details">Details:</label>
+                                    <div class="col-sm-8">
+                                        <%=data.Detail%>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Unique ID">Unique ID:</label>
+                                    <div class="col-sm-4">
+                                        <input id="slug" type="text" value="<%=data.UniqueSlug%>" class="form-control"
+                                            name="LaptopUniqueSlug" readonly>
+                                    </div>
+                                </div>
+                                <%}else{%>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">Choose a laptop:</label>
+                                    <div class="col-sm-6">
+                                        <a href="/index/customers/choosebrand" class="btn btn-warning"
+                                            name="ChooseLaptop" id="chooseLaptop">
+                                            Select
+                                        </a>
+                                    </div>
+                                </div>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="OS">Customer ID:</label>
+                                    <div class="col-sm-3">
+                                <input value="<%=customerID%>" type="text" class="form-control" name="CustomerID"
+                                id="customerID" readonly>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4" for="Model">Full Name:</label>
+                            <div class="col-sm-6">
+                                <%if(where=="after"){%>
+                                <input type="text" class="form-control" name="FullName" id="fullname">
+                                <%}else{%>
+                                <input type="text" class="form-control" name="FullName" id="fullname" readonly>
+                                <%}%>
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <label class="control-label col-sm-4" for="CPU">Email ID:</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="EmailID" id="emailID">
+                                        <%if(where=="after"){%>
+                                <input type="text" class="form-control" name="EmailID" id="emailID">
+                                <%}else{%>
+                                <input type="email" class="form-control" name="EmailID" id="emailID" readonly>
+                                <%}%>
                                     </div>
+                                    <i id="emailValidationIcon" class="fas fa-times" style="vertical-align: middle" hidden="true"></i>
                                 </div>
                                 <div class="row form-group">
                                     <label class="control-label col-sm-4" for="Memory">Phone:</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="Phone" id="phone">
+                                        <%if(where=="after"){%>
+                                <input type="text" class="form-control" name="Phone" id="phone">
+                                <%}else{%>
+                                <input type="text" class="form-control" name="Phone" id="phone" readonly>
+                                <%}%>
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <label class="control-label col-sm-4" for="HDD">Address:</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="Address" id="address">
+                                        <%if(where=="after"){%>
+                                <input type="text" class="form-control" name="Address" id="address">
+                                <%}else{%>
+                                <input type="text" class="form-control" name="Address" id="address" readonly>
+                                <%}%>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-8 col-6">
                         <div class="card">
                             <div class="card-body">
@@ -118,9 +220,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="center-button popup">
-                    <button type="submit" class="btn btn-dark" id="submitBttn">Add</button>
+                    <button type="submit" class="btn btn-dark" id="submitBttn" disabled="true">Add</button>
                 </div>
             </form>
         </div>
@@ -130,31 +232,46 @@
 <!-- /.content-wrapper -->
 
 <%-contentFor('script')%>
-<script src="/javascripts/ckeditor.min.js"></script>
-<script>
-    $('input#model').change(function () {
-        $('input#slug').val(slugify($('input#model').val()));
-    });
+                                <script src="/javascripts/ckeditor.min.js"></script>
+                                <script>
+                                    $('input#model').change(function () {
+                                        $('input#slug').val(slugify($('input#model').val()));
+                                    });
 
-    $("#status-dropdown-menu").on('click', 'a', function () {
-        $("#statusBttn").text($(this).text());
-        $("#statusBttn").val($(this).text());
-    });
+                                    $("#status-dropdown-menu").on('click', 'a', function () {
+                                        $("#statusBttn").text($(this).text());
+                                        $("#statusBttn").val($(this).text());
+                                    });
+                                    $('input#emailID').change(function () {
+                                        $('i#emailValidationIcon').attr('hidden', false)
+                                        if (validateEmail($('input#emailID').val())) {
+                                            $("#submitBttn").attr("disabled", false);
+                                            $('i#emailValidationIcon').attr("class", "fas fa-check")
+                                        } else {
+                                            $("#submitBttn").attr("disabled", true);
+                                            $('i#emailValidationIcon').attr("class", "fas fa-times")
+                                        }
+                                    });
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+                                    function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#laptopImage')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(200);
-            };
+                                            reader.onload = function (e) {
+                                                $('#laptopImage')
+                                                    .attr('src', e.target.result)
+                                                    .width(200)
+                                                    .height(200);
+                                            };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+                                            reader.readAsDataURL(input.files[0]);
+                                        }
+                                    }
+
+                                    function validateEmail(email) {
+                                        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        return re.test(email);
+                                    }
 
 
-</script>
+                                </script>
