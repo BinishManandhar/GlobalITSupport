@@ -1,0 +1,150 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Laptop Inquiry</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <form class="form-horizontal" action="/index/customers/searchlaptop" method="POST" id="postForm">
+                <div class="row">
+                    <div class="col-lg-8 col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Model">Model:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="Model" id="model">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="CPU">CPU/Processor:</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="CPU">
+                                            <%for(var i=0;i<cpu.length;i++){%>
+                                            <option value="<%=cpu[i].CPU%>"><%=cpu[i].CPU%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Memory">Memory:</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="Memory">
+                                                <%for(var i=0;i<memory.length;i++){%>
+                                            <option value="<%=memory[i].Memory%>"><%=memory[i].Memory%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="HDD">HDD:</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="HDD">
+                                                <%for(var i=0;i<hdd.length;i++){%>
+                                            <option value="<%=hdd[i].HDD%>"><%=hdd[i].HDD%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="OS">OS:</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="OS">
+                                                <%for(var i=0;i<os.length;i++){%>
+                                            <option value="<%=os[i].OS%>"><%=os[i].OS%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Graphics">Graphics Card:</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="Graphics">
+                                                <%for(var i=0;i<graphics.length;i++){%>
+                                            <option value="<%=graphics[i].Graphics%>"><%=graphics[i].Graphics%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Price">Price(NRS):</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="Price">
+                                        <option value="1">Below 25,000</option>
+                                        <option value="2">25,000 - 30,000</option>
+                                        <option value="3">30,000 - 40,000</option>
+                                        <option value="4">40,000 - 50,000</option>
+                                        <option value="5">50,000 - 60,000</option>
+                                        <option value="6">60,000 - 70,000</option>
+                                        <option value="7">70,000 - 80,000</option>
+                                        <option value="8">80,000 - 90,000</option>
+                                        <option value="9">90,000 - 100,000</option>
+                                        <option value="10">Above 100,000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="control-label col-sm-4" for="Unique ID">Unique ID:</label>
+                                    <div class="col-sm-4">
+                                        <input id="slug" type="text" class="form-control" name="UniqueSlug">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-button popup">
+                    <button type="submit" class="btn btn-dark" id="submitBttn">Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%-contentFor('script')%>
+                                            <script src="/javascripts/ckeditor.min.js"></script>
+                                            <script>
+                                                $('input#model').change(function () {
+                                                    $('input#slug').val(slugify($('input#model').val()));
+                                                });
+
+                                                $("#status-dropdown-menu").on('click', 'a', function () {
+                                                    $("#statusBttn").text($(this).text());
+                                                    $("#statusBttn").val($(this).text());
+                                                });
+
+                                                function readURL(input) {
+                                                    if (input.files && input.files[0]) {
+                                                        var reader = new FileReader();
+
+                                                        reader.onload = function (e) {
+                                                            $('#laptopImage')
+                                                                .attr('src', e.target.result)
+                                                                .width(200)
+                                                                .height(200);
+                                                        };
+
+                                                        reader.readAsDataURL(input.files[0]);
+                                                    }
+                                                }
+
+
+                                            </script>
